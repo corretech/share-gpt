@@ -1,0 +1,12 @@
+<%= form_with model: @chat, url:user_chats_path, method:"chat" do |f| %>
+      
+    <div class="field_area">
+      <%= f.label :question, class:"field_label" %><br />
+      <%= f.text_area :question ,autocomplete: "new-password", class:"input_field text_area" ,required: true%>
+    </div>
+
+    <div class="submit_area">
+    <%=f.hidden_field :parent_chat_id, value:@chat.parent_chat_id %>
+      <%= f.submit "送信", class:"submit", id:"submit" %>
+    </div>
+<% end %>
