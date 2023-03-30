@@ -10,6 +10,7 @@ class User::ChatsController < User::Base
             @chat.user = current_user
         end
         
+        session[:user_name] = params[:chat][:user_name]
         #response = client.chat(
         #    parameters: {
         #        model: "gpt-3.5-turbo",
@@ -21,6 +22,7 @@ class User::ChatsController < User::Base
     def show
         @chat = Chat.find(params[:id])
         @new_chat = Chat.new(room_id:@chat.room_id, prequel_chat_id: params[:id])
+        @sequels = @chat.sequels.page(params[:page]).per(1)
     end
 
     def chat_params

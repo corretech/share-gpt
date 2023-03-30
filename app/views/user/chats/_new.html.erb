@@ -6,7 +6,7 @@
       
 
       <%= f.label :user_name %></br>
-      <%= f.text_field :user_name, class:"user_name input_field" %></br>
+      <%= f.text_field :user_name,value:session[:user_name], class:"user_name input_field" %></br>
 
       <%= f.label :question %></br>
       <%= f.text_area :question ,autocomplete: "new-password", class:"input_field text_area",value:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" ,required: true%>

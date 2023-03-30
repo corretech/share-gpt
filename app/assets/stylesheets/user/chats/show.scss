@@ -2,6 +2,16 @@
     .seques_chat_area + .submit_icon{
         margin: 10px 10px;
     }
+    .sequels_header{
+        padding:0px 10px;
+        .label{
+            display: inline;
+        }
+        .pagination{
+            float: right;
+            
+        }
+    }
     .sequel_chat_zone{
         display: flex;
         height: 100%;
