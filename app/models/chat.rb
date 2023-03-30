@@ -1,5 +1,6 @@
 class Chat < ApplicationRecord
-    belongs_to :user
+    belongs_to :user, optional: true
+    belongs_to :host, optional: true
     belongs_to :room
     belongs_to :prequel, class_name: 'Chat', foreign_key: :prequel_chat_id, optional: true
     has_many :sequels, class_name: "Chat", dependent: :destroy, foreign_key: :prequel_chat_id

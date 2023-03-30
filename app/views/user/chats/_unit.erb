@@ -1,12 +1,13 @@
 <div class="chat_unit">
     <%= link_to(user_chat_path(chat.id), class:"chat_link") do%>
+    <% end %>
     <div class="question_area chat_component">
         <div class="icon_area">
-            <div class="image">
+            <div class="icon">
                 hase
             </div>
         </div>
-        <div class="text_aera">
+        <div class="right_aera">
             <p class="text"><%=chat.question%>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
         </div>
     </div>
@@ -17,9 +18,13 @@
             </path>
             </svg>
         </div>
-        <div class="text_aera">
+        <div class="right_aera">
             <p class="text"><%=chat.answer%></p>
+            <div class="like_button_area">
+                <%= link_to(user_chat_likes_path(chat_id: chat.id), class: "like_area like_button", id:"like_button", method: :post, remote: true) do%>
+                    <span class="far fa-thumbs-up" id="like_count"><%=chat.total_likes%></span>
+                <% end %>
+            </div>
         </div>
     </div>
-    <% end %>
 </div>

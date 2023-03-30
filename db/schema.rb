@@ -21,11 +21,13 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
   end
 
   create_table "chat_likes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
+    t.bigint "host_id"
     t.bigint "chat_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["chat_id"], name: "index_chat_likes_on_chat_id"
+    t.index ["host_id"], name: "index_chat_likes_on_host_id"
     t.index ["user_id"], name: "index_chat_likes_on_user_id"
   end
 
@@ -50,18 +52,21 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
   end
 
   create_table "comment_likes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
+    t.bigint "host_id"
     t.bigint "chat_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["chat_id"], name: "index_comment_likes_on_chat_id"
+    t.index ["host_id"], name: "index_comment_likes_on_host_id"
     t.index ["user_id"], name: "index_comment_likes_on_user_id"
   end
 
   create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
+    t.bigint "host_id"
     t.bigint "chat_id", null: false
-    t.bigint "comment_id", null: false
+    t.bigint "comment_id"
     t.integer "total_views", default: 0
     t.integer "total_likes", default: 0
     t.integer "total_chats", default: 0
@@ -70,6 +75,7 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["chat_id"], name: "index_comments_on_chat_id"
     t.index ["comment_id"], name: "index_comments_on_comment_id"
+    t.index ["host_id"], name: "index_comments_on_host_id"
     t.index ["total_chats"], name: "index_comments_on_total_chats"
     t.index ["total_comments"], name: "index_comments_on_total_comments"
     t.index ["total_likes"], name: "index_comments_on_total_likes"
@@ -86,6 +92,13 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
     t.index ["upper_chat_id"], name: "index_contexts_on_upper_chat_id"
   end
 
+  create_table "hosts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "ip_address"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "room_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "category_id", null: false
     t.bigint "room_id", null: false
@@ -97,6 +110,7 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
 
   create_table "rooms", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
+    t.bigint "host_id"
     t.integer "total_views", default: 0
     t.integer "total_chats_likes", default: 0
     t.integer "total_comments_likes", default: 0
@@ -104,6 +118,7 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
     t.integer "total_comments", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["host_id"], name: "index_rooms_on_host_id"
     t.index ["total_chats"], name: "index_rooms_on_total_chats"
     t.index ["total_chats_likes"], name: "index_rooms_on_total_chats_likes"
     t.index ["total_comments"], name: "index_rooms_on_total_comments"
@@ -144,18 +159,22 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
   end
 
   add_foreign_key "chat_likes", "chats"
+  add_foreign_key "chat_likes", "hosts"
   add_foreign_key "chat_likes", "users"
   add_foreign_key "chats", "chats", column: "prequel_chat_id"
   add_foreign_key "chats", "rooms"
   add_foreign_key "chats", "users"
   add_foreign_key "comment_likes", "chats"
+  add_foreign_key "comment_likes", "hosts"
   add_foreign_key "comment_likes", "users"
   add_foreign_key "comments", "chats"
   add_foreign_key "comments", "comments"
+  add_foreign_key "comments", "hosts"
   add_foreign_key "comments", "users"
   add_foreign_key "contexts", "chats", column: "bottom_chat_id"
   add_foreign_key "contexts", "chats", column: "upper_chat_id"
   add_foreign_key "room_categories", "categories"
   add_foreign_key "room_categories", "rooms"
+  add_foreign_key "rooms", "hosts"
   add_foreign_key "rooms", "users"
 end
