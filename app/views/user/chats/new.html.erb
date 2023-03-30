@@ -1,12 +1,34 @@
-<%= form_with model: @chat, url:user_chats_path, method:"chat" do |f| %>
+<%= form_with model: @chat, url:user_chats_path, method:"POST" do |f| %>
       
     <div class="field_area">
       <%= f.label :question, class:"field_label" %><br />
-      <%= f.text_area :question ,autocomplete: "new-password", class:"input_field text_area" ,required: true%>
+      <div class="input_field_area">
+      <%= f.text_area :question ,autocomplete: "new-password", class:"input_field text_area",value:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" ,required: true%>
+      <%= f.submit "　　", class:"submit", id:"submit" %>
+      <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+        <line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2">
+        </polygon>
+      </svg>
+      </div>
     </div>
-
-    <div class="submit_area">
-    <%=f.hidden_field :parent_chat_id, value:@chat.parent_chat_id %>
-      <%= f.submit "送信", class:"submit", id:"submit" %>
-    </div>
+    <%=f.hidden_field :prequel_chat_id, value:@chat.prequel_chat_id %>
 <% end %>
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  // textareaタグを全て取得
+  const textareaEls = document.querySelectorAll("textarea");
+
+  textareaEls.forEach((textareaEl) => {
+    // デフォルト値としてスタイル属性を付与
+    textareaEl.setAttribute("style", `height: ${textareaEl.scrollHeight}px;`);
+    // inputイベントが発生するたびに関数呼び出し
+    textareaEl.addEventListener("input", setTextareaHeight);
+  });
+
+  // textareaの高さを計算して指定する関数
+  function setTextareaHeight() {
+    this.style.height = "auto";
+    this.style.height = `${this.scrollHeight}px`;
+  }
+});
+</script>

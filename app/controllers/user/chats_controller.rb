@@ -1,6 +1,6 @@
 class User::ChatsController < User::Base
     def new
-        @chat = Chat.new(parent_chat_id:1)
+        @chat = Chat.new(prequel_chat_id:1)
     end
 
     def create
