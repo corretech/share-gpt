@@ -1,0 +1,36 @@
+.chat_show_file{
+    .seques_chat_area + .submit_icon{
+        margin: 10px 10px;
+    }
+    .sequel_chat_zone{
+        display: flex;
+        height: 100%;
+        .border_area{
+            width: 30px;
+            display: inline-block;
+            float: left;
+        }
+        .border{
+            margin-left: 50%;
+            left:80px;/*横位置の指定*/
+            top:20%;/*縦位置の指定*/
+            background:dimgray;/*線の色指定*/
+            width:4px;/*線の幅指定*/
+            height:calc(100% - 50px);/*線の高さ指定*/
+            border-radius: 2px;
+            margin: 25px 15px;
+        }
+        .sequel_chat_area{
+            width: calc(100% - 30px);
+            float: right;
+            .chat_link_area{
+                width: 100%;
+                text-align: center;
+                .chat_link{
+                    color: gray;
+
+                }
+            }
+        }
+    }
+}

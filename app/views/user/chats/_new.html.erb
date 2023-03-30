@@ -1,12 +1,16 @@
-<div class="chats_new_zone">
-<% @chats.each do |chat|%>
-    <%= render "user/chats/unit", chat: chat %>
-<% end %>
-<%= form_with model: @chat, url:user_chats_path, method:"POST" do |f| %>
+<div class="chat_new_component">
+<%= form_with model:  chat, url:user_chats_path, method:"POST" do |f| %>
       
     <div class="field_area">
       <div class="input_field_area">
       
+
+      <%= f.label :user_name %></br>
+      <%= f.text_field :user_name, class:"user_name input_field" %></br>
+
+      <%= f.label :question %></br>
+      <%= f.text_area :question ,autocomplete: "new-password", class:"input_field text_area",value:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" ,required: true%>
+
       <!--送信ボタン -->
       <%= f.submit "　　", class:"submit", id:"submit" %>
       <svg class="submit_icon"stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -14,15 +18,9 @@
         </polygon>
       </svg>
 
-      <%= f.label :user_name %></br>
-      <%= f.text_field :user_name, class:"user_name" %></br>
-
-      <%= f.label :question %></br>
-      <%= f.text_area :question ,autocomplete: "new-password", class:"input_field text_area",value:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" ,required: true%>
-
       </div>
     </div>
-    <%=f.hidden_field :prequel_chat_id, value:@chat.prequel_chat_id %>
+    <%=f.hidden_field :prequel_chat_id, value: chat.prequel_chat_id %>
 <% end %>
 </div>
 <script>

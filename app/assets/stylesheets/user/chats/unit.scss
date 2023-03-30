@@ -1,0 +1,46 @@
+.chat_unit{
+    .chat_link{
+        color: black;
+        text-decoration: none;
+        pointer-events: auto;
+    }
+    .chat_link:hover .question_area{
+        background-color: whitesmoke;
+    }
+    .chat_link:hover .answer_area{
+        background-color: rgb(230, 230,230);
+    }
+    .answer_area{
+        border-bottom-width: 1px;
+        //width: 100%;
+        --tw-bg-opacity: 1;
+        background-color: rgba(247,247,248,var(--tw-bg-opacity));
+        border-color: rgba(0,0,0,.1);
+        border-top: 1px solid rgba(0,0,0,.1);
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        .svg_area{
+    
+        }
+    }
+    
+    .chat_component{
+        padding: 10px 20px;
+        display: flex;
+        height: 100%;
+        .icon_area{
+            display: inline-block;
+            width: 50px;
+            float: left;
+        }
+        .text_aera{
+            width: calc(100% - 50px);
+        }
+        .text{
+            width: 100%;
+            margin-top: 0px;
+            float: none;
+            overflow-wrap: break-word;
+        }
+    }    
+}
+ 

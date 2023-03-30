@@ -1,0 +1,24 @@
+<div class="chat_show_file">
+    <% @chat.uppers.each do |chat|%>
+        <%= render "user/chats/unit", chat:chat %>
+    <%end%>
+    <%= render "user/chats/unit", chat:@chat %>
+
+    <%= render "user/chats/new", chat:@new_chat%>
+    <div class="seques_chat_area">
+        <span><h2>続きのチャット</h2></span>
+    </div>
+    <div class="sequel_chat_zone">
+        <div class="border_area">
+            <div class="border"></div>
+        </div>
+        <div class="sequel_chat_area">
+            <% @chat.sequels.each do |chat|%>
+                <%= render "user/chats/unit", chat:chat %>
+                <div class="chat_link_area">
+                <%= link_to "続き#{chat.bottoms.count}件", user_chat_path(chat.id), class:"chat_link"%>
+                </div>
+            <%end%>
+        </div>
+    </div>
+</div>

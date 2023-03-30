@@ -7,4 +7,10 @@ module CommonMethods
         end
         messages
     end
+
+    def chat_to_hash_tree(chats)
+    end
+
+    def append_chat(chat)
+    end
 end

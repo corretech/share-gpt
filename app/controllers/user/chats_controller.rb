@@ -1,5 +1,6 @@
 class User::ChatsController < User::Base
     def new
+        @chats = Chat.where(room_id:params[:room_id])
         @chat = Chat.new(prequel_chat_id:1)
     end
 
@@ -19,6 +20,7 @@ class User::ChatsController < User::Base
 
     def show
         @chat = Chat.find(params[:id])
+        @new_chat = Chat.new(room_id:@chat.room_id, prequel_chat_id: params[:id])
     end
 
     def chat_params

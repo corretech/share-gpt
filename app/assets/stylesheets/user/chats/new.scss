@@ -1,3 +1,12 @@
+
+.chats_new_zone{
+    label{
+        float: left;
+    }
+    input{
+        float: left;
+    }
+}
 .input_field{
 	//background-color: #fff;
 	//padding: 20px;
@@ -57,7 +66,7 @@
 
 .submit{
     position: absolute;
-    opacity: .4;
+    //opacity: .4;
     //right: 0.5rem;
     --tw-text-opacity: 1;
     color: rgba(142,142,160,var(--tw-text-opacity));
@@ -70,7 +79,7 @@
     right: 0px;
 }
 
-svg{
+.submit_icon{
     opacity: .4;
     right: 0.5rem;
     --tw-text-opacity: 1;
@@ -85,6 +94,6 @@ svg{
 .submit:hover{
     cursor: pointer;
 }
-.submit:hover + svg{
+.submit:hover + .submit_icon{
     opacity: 1;
 }
