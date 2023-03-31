@@ -2,12 +2,14 @@ class User::ChatsController < User::Base
     #require "openai"
     def index
         @chats = Chat.all.order(created_at: :DESC).page(params[:page]).per(gon.chat_pages)
+        update_total_views(@chats)
     end
 
     def page
         puts "ページ" + params[:page]
         @chats = Chat.all.order(created_at: :DESC).page(params[:page]).per(gon.chat_pages)
         puts @chats.all.count
+        update_total_views(@chats)
         render partial: "user/chats/page", locals: { contents: @chats }
     end
 
@@ -63,8 +65,13 @@ class User::ChatsController < User::Base
 
     def show
         @chat = Chat.find(params[:id])
+        @chat.update(total_views: @chat.total_views + 1)
         @new_chat = Chat.new(room_id:@chat.room_id, prequel_chat_id: params[:id])
         @sequels = @chat.sequels.page(params[:page]).per(1)
+        @uppers = @chat.uppers.order(created_at: :asc)
+        update_total_views(@uppers)
+        update_total_views(@sequels)
+        @new_chat = Chat.new(room_id:@chat.room_id, prequel_chat_id: params[:id])
     end
 
     def chat_params
@@ -72,5 +79,11 @@ class User::ChatsController < User::Base
             :prequel_chat_id,
             :question,
         )
+    end
+
+    def update_total_views(chats)
+        chats.each do |chat|
+            chat.update(total_views: chat.total_views + 1)
+        end
     end
 end

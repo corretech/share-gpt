@@ -17,6 +17,7 @@ ja:
         user: ユーザー
         user_name: ユーザー名
         host: ユーザー
+        host_name: ユーザー名
         question: 質問
         answer: 回答
         chat: チャット

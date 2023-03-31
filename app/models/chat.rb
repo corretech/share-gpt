@@ -10,15 +10,11 @@ class Chat < ApplicationRecord
     has_many :uppers, through: :upper_contexts, source: :upper_chat
     has_many :bottoms, through: :bottom_contexts, source: :bottom_chat
     validate :validate_prequel
+    validate :check_host_name
 
     before_validation :create_room
     before_validation :set_default_value
     after_save :create_contexts
-
-    after_find do |user|
-        puts "オブジェクトが見つかりました"
-        self.update(total_views: self.total_views + 1)
-    end
 
     validates :question, length: {maximum: :max_characters}, presence: true
     def max_characters
@@ -26,13 +22,11 @@ class Chat < ApplicationRecord
     end
 
     def set_default_value
-        puts "番号"
         if self.prequel.present?
             self.number = self.prequel.uppers.count + 1
         else
             self.number = 1
         end
-        puts self.number
     end
 
     def validate_prequel
@@ -50,6 +44,12 @@ class Chat < ApplicationRecord
                 self.room = Room.new(user: self.user)
             else
             end
+        end
+    end
+
+    def check_host_name
+        if self.host
+            errors.add(:host_name) if !self.host.name.present?
         end
     end
 
