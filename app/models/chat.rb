@@ -15,6 +15,10 @@ class Chat < ApplicationRecord
     before_validation :set_default_value
     after_save :create_contexts
 
+    after_find do |user|
+        puts "オブジェクトが見つかりました"
+    end
+
     validates :question, length: {maximum: :max_characters}, presence: true
     def max_characters
         2500
