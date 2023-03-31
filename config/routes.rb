@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   get 'pages/home'
   namespace :user do
+    get 'rooms/page', to:"rooms#page", as:"room_page"
     resources :rooms
     get 'chats/page', to:"chats#page", as:"chat_page"
     resources :chats

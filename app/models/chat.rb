@@ -16,6 +16,8 @@ class Chat < ApplicationRecord
     before_validation :set_default_value
     after_save :create_contexts
 
+    attr_accessor :user_name
+
     validates :question, length: {maximum: :max_characters}, presence: true
     def max_characters
         2500
@@ -23,7 +25,7 @@ class Chat < ApplicationRecord
 
     def set_default_value
         if self.prequel.present?
-            self.number = self.prequel.uppers.count + 1
+            self.number = self.prequel.uppers.count + 2
         else
             self.number = 1
         end
@@ -35,21 +37,23 @@ class Chat < ApplicationRecord
     end
 
     def create_room
-        if self.prequel.present?
-            self.room = self.prequel.room
-        else
-            if self.host.present?
-                self.room = Room.new(host: self.host)
-            elsif self.user.present?
-                self.room = Room.new(user: self.user)
+        if !self.room_id.present?
+            if self.prequel.present?
+                self.room = self.prequel.room
             else
+                if self.host.present?
+                    self.room = Room.new(host: self.host)
+                elsif self.user.present?
+                    self.room = Room.new(user: self.user)
+                else
+                end
             end
         end
     end
 
     def check_host_name
-        if self.host
-            errors.add(:host_name) if !self.host.name.present?
+        if self.host && !self.host.name.present?
+            errors.add(:user_name)
         end
     end
 

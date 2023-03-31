@@ -7,10 +7,10 @@ module CommonMethods
         end
         messages
     end
-
-    def chat_to_hash_tree(chats)
-    end
-
-    def append_chat(chat)
+    
+    def update_total_views(chats)
+        chats.each do |chat|
+            chat.update(total_views: chat.total_views + 1)
+        end
     end
 end

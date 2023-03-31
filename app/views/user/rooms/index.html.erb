@@ -1,4 +1,5 @@
-<div class="chat_index_file">
+<div class="room_index_file">
+    <%= render "user/chats/new", chat:@chat%>
     <div class="chats_list_area" id="chats_list_area">
         <% @chats.each do |chat|%>
             <%= render "user/chats/unit", chat:chat %>

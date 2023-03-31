@@ -14,7 +14,6 @@ class User::ChatsController < User::Base
     end
 
     def new
-        @chats = Chat.where(room_id:params[:room_id])
         @chat = Chat.new()
     end
 
@@ -48,6 +47,8 @@ class User::ChatsController < User::Base
                 messages: all_chats,
             })
         @chat.answer = response.dig("choices", 0, "message", "content")
+        @chat.host.name = @chat.user_name
+        @chat.host.save!
         puts "回答"
         puts response
 
@@ -57,9 +58,14 @@ class User::ChatsController < User::Base
         else
             @model = @chat
             @chat = @chat.prequel
-            @new_chat = Chat.new(room_id:@chat.room_id, prequel_chat_id: params[:id])
-            @sequels =  @chat.sequels.page(params[:page]).per(1)
-            render "user/chats/show"
+            if @chat.present?
+                @new_chat = Chat.new(prequel_chat_id: params[:id])
+                @sequels =  @chat.sequels.page(params[:page]).per(1)
+                render "user/chats/show"
+            else
+                @chat = Chat.new()
+                render "user/chats/new"
+            end
         end
     end
 
@@ -76,14 +82,9 @@ class User::ChatsController < User::Base
 
     def chat_params
         params.require(:chat).permit(
+            :user_name,
             :prequel_chat_id,
             :question,
         )
-    end
-
-    def update_total_views(chats)
-        chats.each do |chat|
-            chat.update(total_views: chat.total_views + 1)
-        end
     end
 end

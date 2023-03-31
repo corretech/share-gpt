@@ -1,7 +1,4 @@
 <div class="chats_new_zone">
-    <% @chats.each do |chat|%>
-        <%= render "user/chats/unit", chat: chat %>
-    <% end %>
     <h2 class="label">新規作成</h2>
     <%= render "user/chats/new", chat:@chat%>
 </div>
