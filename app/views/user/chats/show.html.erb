@@ -4,10 +4,10 @@
     <%end%>
     <%= render "user/chats/unit", chat:@chat %>
 
-    <%= render "user/chats/new", chat:@new_chat%>
     <div class="sequels_header">
         <span><h2 class="label">続きのチャット</h2><%= paginate @sequels %></span>
     </div>
+    <%= render "user/chats/new", chat:@new_chat%>
     <div class="sequel_chat_zone">
         <div class="border_area">
             <div class="border"></div>
