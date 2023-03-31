@@ -1,5 +1,5 @@
 <div class="chat_show_file">
-    <% @chat.uppers.each do |chat|%>
+    <% @chat.uppers.order(created_at: :asc).each do |chat|%>
         <%= render "user/chats/unit", chat:chat %>
     <%end%>
     <%= render "user/chats/unit", chat:@chat %>

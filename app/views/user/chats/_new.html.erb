@@ -4,8 +4,8 @@
     <div class="field_area">
       <div class="input_field_area">
       
-      <%= f.text_field :user_name ,placeholder:"ユーザー名", value:session[:user_name], class:"user_name input_field" %></br></br>
-      <%= f.text_area :question ,placeholder:"続きの質問" ,autocomplete: "new-password", class:"input_field text_area",value:"" ,required: true%>
+      <%= f.text_field :user_name, placeholder:"ユーザー名", maximum: Host.new.max_name_length, value:session[:user_name], class:"user_name input_field" %></br></br>
+      <%= f.text_area :question, placeholder:"続きの質問", maximum: chat.max_characters, autocomplete: "new-password", class:"input_field text_area",value:"" ,required: true%>
 
       <!--送信ボタン -->
       <%= f.submit "　　", class:"submit", id:"submit" %>

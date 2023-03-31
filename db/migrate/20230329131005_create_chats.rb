@@ -2,6 +2,7 @@ class CreateChats < ActiveRecord::Migration[6.1]
   def change
     create_table :chats do |t|
       t.references :user, index:true, foreign_key: true
+      t.references :host, index:true, foreign_key: true
       t.references :room, null: false, index:true, foreign_key: true
       t.references :prequel_chat, index:true, foreign_key: { to_table: :chats }
       t.text :question

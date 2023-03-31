@@ -44,3 +44,12 @@ Chat.create(
     question:"ケーキ",
     answer:"けんきゅう"
     )
+
+chat = Chat.find_by(question: "ケーキ")
+Chat.create(
+    room_id: chat.room_id,
+    user_id: 1,
+    prequel: chat, 
+    question:"うさぎ",
+    answer:"ぎんねこ"
+    )

@@ -17,10 +17,15 @@
       <nav>
         <ul>
           <li><a href="#">ShareGPT</a></li>
-          <li><%= link_to "人気", user_chats_path %></li>
-          <li><%= link_to "一覧", user_rooms_path %></li>
+          <li><%= link_to "新規作成", new_user_chat_path %></li>
+          <li><%= link_to "新規一覧", user_rooms_path %></li>
+          <li><%= link_to "最近のchat", user_chats_path %></li>
         </ul>
       </nav>
+      <div class="flash_alert_zone flash_zone">
+        <%= content_tag(:spin, flash.alert, class:"alert") if flash.alert%>
+      </div>
+      <%= render "shared/error_message", model: @model%>
     </header>
     <%= yield %>
   </body>

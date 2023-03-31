@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
 
   create_table "chats", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
+    t.bigint "host_id"
     t.bigint "room_id", null: false
     t.bigint "prequel_chat_id"
     t.text "question"
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
     t.integer "total_chats", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["host_id"], name: "index_chats_on_host_id"
     t.index ["prequel_chat_id"], name: "index_chats_on_prequel_chat_id"
     t.index ["room_id"], name: "index_chats_on_room_id"
     t.index ["total_chats"], name: "index_chats_on_total_chats"
@@ -162,6 +164,7 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
   add_foreign_key "chat_likes", "hosts"
   add_foreign_key "chat_likes", "users"
   add_foreign_key "chats", "chats", column: "prequel_chat_id"
+  add_foreign_key "chats", "hosts"
   add_foreign_key "chats", "rooms"
   add_foreign_key "chats", "users"
   add_foreign_key "comment_likes", "chats"

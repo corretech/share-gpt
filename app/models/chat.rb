@@ -9,7 +9,10 @@ class Chat < ApplicationRecord
     has_many :bottom_contexts, class_name: "Context", foreign_key: :upper_chat_id, dependent: :destroy
     has_many :uppers, through: :upper_contexts, source: :upper_chat
     has_many :bottoms, through: :bottom_contexts, source: :bottom_chat
+    validate :validate_prequel
 
+    before_validation :create_room
+    before_validation :set_default_value
     after_save :create_contexts
 
     validates :question, length: {maximum: :max_characters}, presence: true
@@ -17,21 +20,46 @@ class Chat < ApplicationRecord
         2500
     end
 
-    def create_contexts
-        if self.prequel
-            create_context(self.prequel)
+    def set_default_value
+        puts "番号"
+        if self.prequel.present?
+            self.number = self.prequel.uppers.count + 1
+        else
+            self.number = 1
+        end
+        puts self.number
+    end
+
+    def validate_prequel
+        errors.add(:prequel) if self.prequel == self
+        #errors.add(:prequel)
+    end
+
+    def create_room
+        if self.prequel.present?
+            self.room = self.prequel.room
+        else
+            if self.host.present?
+                self.room = Room.new(host: self.host)
+            elsif self.user.present?
+                self.room = Room.new(user: self.user)
+            else
+            end
         end
     end
 
-    def create_context(chat)
-        Context.create(
-            upper_chat: chat,
-            bottom_chat: self,
-        )
-        #前のチャットにも前のチャットがある
-        if chat.prequel
-            chat = self.prequel
-            create_context(chat.prequel)
+    def create_contexts
+        if self.prequel
+            Context.create(
+                upper_chat: self.prequel,
+                bottom_chat: self,
+            )
+            self.prequel.uppers.each do |chat|
+                Context.create(
+                    upper_chat: chat,
+                    bottom_chat: self,
+                )
+            end
         end
     end
 end
