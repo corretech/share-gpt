@@ -1,0 +1,23 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      admin: 管理者
+    attributes:
+      user:
+        id: ID
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+      host:
+        name: ユーザー名
+      admin:
+        id: ID
+      chat:
+        user: ユーザー
+        user_name: ユーザー名
+        host: ユーザー
+        question: 質問
+        answer: 回答
+        chat: チャット
+        likes: いいね
