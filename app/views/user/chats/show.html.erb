@@ -2,7 +2,7 @@
     <% @chat.uppers.order(created_at: :asc).each do |chat|%>
         <%= render "user/chats/unit", chat:chat %>
     <%end%>
-    <%= render "user/chats/unit", chat:@chat %>
+    <%= render "user/chats/unit", chat:@chat, hide_link:true %>
 
     <div class="sequels_header">
         <span><h2 class="label">続きのチャット</h2><%= paginate @sequels %></span>

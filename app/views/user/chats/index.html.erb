@@ -1,0 +1,10 @@
+<div class="chat_index_file">
+    <div class="chats_list_area" id="chats_list_area">
+        <% @chats.each do |chat|%>
+            <%= render "user/chats/unit", chat:chat %>
+        <%end%>
+    </div>
+</div>
+<%= javascript_pack_tag javascript_path %>
+<%= javascript_pack_tag "shared/xml_request" %>
+<%= javascript_pack_tag "shared/check_scroll" %>

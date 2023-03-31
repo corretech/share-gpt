@@ -1,5 +1,16 @@
 class User::ChatsController < User::Base
     #require "openai"
+    def index
+        @chats = Chat.all.order(created_at: :DESC).page(params[:page]).per(gon.chat_pages)
+    end
+
+    def page
+        puts "ページ" + params[:page]
+        @chats = Chat.all.order(created_at: :DESC).page(params[:page]).per(gon.chat_pages)
+        puts @chats.all.count
+        render partial: "user/chats/page", locals: { contents: @chats }
+    end
+
     def new
         @chats = Chat.where(room_id:params[:room_id])
         @chat = Chat.new()

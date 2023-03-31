@@ -1,5 +1,7 @@
 <div class="chat_unit">
-    <%= link_to(user_chat_path(chat.id), class:"chat_link") do%>
+    <% if !defined? hide_link %>
+        <%= link_to(user_chat_path(chat.id), class:"chat_link") do%>
+        <% end %>
     <% end %>
     <div class="question_area chat_component">
         <div class="icon_area">

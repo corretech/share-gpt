@@ -1,5 +1,11 @@
 class User::Base < ApplicationController
     before_action :check_session
+    before_action :set_default_value
+
+    def set_default_value
+        gon.chat_pages = 4
+    end
+
     def check_session
         if session[:user_id].present?
             puts "旧セッション"

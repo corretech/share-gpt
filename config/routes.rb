@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'pages/home'
   namespace :user do
     resources :rooms
+    get 'chats/page', to:"chats#page", as:"chat_page"
     resources :chats
     resources :comments
     resources :chat_likes, only:[:create]
