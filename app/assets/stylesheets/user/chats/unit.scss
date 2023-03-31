@@ -63,12 +63,17 @@
             float: left;
             position: relative;
             height: 30px;
-            .like_button{
+            .bottom_component{
                 position: absolute;
                 top: 10px;
-                left: 10px;
                 color: gray;
+            }
+            .like_button{
+                left: 10px;
                 z-index: 1;
+            }
+            .view_area{
+                left: 50px;
             }
             .like_button:hover{
                 color: darkgray;

@@ -17,6 +17,7 @@ class Chat < ApplicationRecord
 
     after_find do |user|
         puts "オブジェクトが見つかりました"
+        self.update(total_views: self.total_views + 1)
     end
 
     validates :question, length: {maximum: :max_characters}, presence: true
