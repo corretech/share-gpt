@@ -4,6 +4,8 @@ class User::Base < ApplicationController
 
     def set_default_value
         gon.chat_pages = 4
+        gon.comment_pages = 2
+        gon.is_loaded = true
     end
 
     def check_session
@@ -27,7 +29,7 @@ class User::Base < ApplicationController
             source: ip_address.to_s
         )
         puts "保存"
-        puts @current_host
+        puts @current_host.name
         puts @current_host.save
     end
 end

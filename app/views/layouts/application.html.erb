@@ -31,6 +31,7 @@
     <%= yield %>
   </body>
 </html>
+<%= javascript_pack_tag "layout/application" %>
 <script>
 $('.like_button').on('click', function() {
     $(this).children('span').text(Number($(this).children('span').text())+1)

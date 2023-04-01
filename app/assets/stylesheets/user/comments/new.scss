@@ -1,0 +1,105 @@
+
+.comments_new_zone{
+    label{
+        float: left;
+    }
+    input{
+        float: left;
+    }
+    .label{
+        margin: 10px 0px 0px 20px;
+    }
+}
+.input_field{
+	//background-color: #fff;
+	//padding: 20px;
+	//margin: 20px;
+	//border-radius: 5px;
+	//box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+
+    padding-left: 0;
+    //padding-right: 1.75rem;
+    overflow-y: hidden;
+    //max-height: 200px;
+    //height: 24px;
+    border-width: 0;
+    resize: none;
+    width: 100%;
+    margin: 0px;
+    padding: 0;
+    background-color: transparent;
+
+    font-family: monospace;
+    text-rendering: auto;
+    color: fieldtext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    column-count: initial !important;
+
+
+    width: calc(100% - 50px);
+    outline:none;
+    font-size: 16px;
+}
+.input_field::placeholder {
+    color: lightgray;
+  }
+.input_field_area{
+    padding-left: 1rem;
+    padding-top: 0.75rem;
+    --tw-shadow: 0 0 10px rgba(0,0,0,.1);
+    --tw-shadow-colored: 0 0 10px var(--tw-shadow-color);
+
+    background-color: #fff;
+	margin: 20px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    position: relative;
+}
+
+.submit{
+    position: absolute;
+    //opacity: .4;
+    //right: 0.5rem;
+    --tw-text-opacity: 1;
+    color: rgba(142,142,160,var(--tw-text-opacity));
+    padding: 0.25rem;
+    float: right;
+    //background-color: black;
+    opacity: 0.0;
+    z-index: 1;
+    margin-right: 10px;
+    right: 0px;
+}
+
+.submit_icon{
+    opacity: .4;
+    right: 0.5rem;
+    --tw-text-opacity: 1;
+    color: rgba(142,142,160,var(--tw-text-opacity));
+    padding: 0.25rem;
+    display: inline-block;
+    width: 30px;
+    height: 20px;
+    margin-right: 10px;
+    float: right;
+}
+.submit:hover{
+    cursor: pointer;
+}
+.submit:hover + .submit_icon{
+    opacity: 1;
+}

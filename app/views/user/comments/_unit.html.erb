@@ -1,0 +1,20 @@
+<div class="comment_unit unit">
+    <div class="answer_area comment_component">
+        <div class="icon_area">
+            <div class="icon">
+                <span>hasehasehase</span>
+            </div>
+        </div>
+        <div class="right_aera">
+            <p class="text"><%=comment.body%></p>
+            <div class="like_button_area">
+                <%= link_to(user_comment_likes_path(comment_id: comment.id), class: "like_area like_button bottom_component", id:"like_button", method: :post, remote: true) do%>
+                    <span class="far fa-thumbs-up" id="like_count"><%=comment.total_likes%></span>
+                <% end %>
+                <div class="view_area bottom_component">
+                    <span class="far fa-chart-bar"><%=comment.total_views%></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

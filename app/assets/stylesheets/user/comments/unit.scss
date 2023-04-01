@@ -1,0 +1,84 @@
+.comment_unit{
+    position: relative;
+    .comment_link{
+        position: absolute;
+        top:0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        color: black;
+        //background-color: red;
+        z-index: 1;
+        text-decoration: none;
+        pointer-events: auto;
+    }
+    .comment_link:hover ~ .question_area{
+        background-color: rgb(240, 240,240);
+    }
+    .comment_link:hover ~ .answer_area{
+        background-color: rgb(230, 230,230);
+    }
+    .answer_area{
+        border-bottom-width: 1px;
+        //width: 100%;
+        --tw-bg-opacity: 1;
+        background-color: rgba(247,247,248,var(--tw-bg-opacity));
+        border-color: rgba(0,0,0,.1);
+        border-top: 1px solid rgba(0,0,0,.1);
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        .svg_area{
+    
+        }
+    }
+    
+    .comment_component{
+        padding: 10px 20px;
+        display: flex;
+        height: 100%;
+        text-align: center;
+        .icon_area{
+            display: inline-block;
+            width: 50px;
+            float: left;
+            .icon{
+                width: 100%;
+                overflow-wrap: break-word;
+            }
+        }
+        .right_aera{
+            width: calc(100% - 50px);
+            padding-left: 5px;
+            text-align: left;
+            .text{
+                width: 100%;
+                margin-top: 0px;
+                float: none;
+                overflow-wrap: break-word;
+                white-space: pre-line;
+            }
+        }
+        .like_button_area{
+            display: inline-block;
+            width: 100%;
+            float: left;
+            position: relative;
+            height: 30px;
+            .bottom_component{
+                position: absolute;
+                top: 10px;
+                color: gray;
+            }
+            .like_button{
+                left: 10px;
+                z-index: 1;
+            }
+            .view_area{
+                left: 50px;
+            }
+            .like_button:hover{
+                color: darkgray;
+            }
+        }
+    }    
+}
+ 

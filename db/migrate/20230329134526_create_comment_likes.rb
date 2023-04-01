@@ -3,7 +3,7 @@ class CreateCommentLikes < ActiveRecord::Migration[6.1]
     create_table :comment_likes do |t|
       t.references :user, index:true, foreign_key: true
       t.references :host, index:true, foreign_key: true
-      t.references :chat, null: false, index:true, foreign_key: true
+      t.references :comment, null: false, index:true, foreign_key: true
 
       t.timestamps
     end

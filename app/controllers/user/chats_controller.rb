@@ -13,6 +13,22 @@ class User::ChatsController < User::Base
         render partial: "user/chats/page", locals: { contents: @chats }
     end
 
+    def sequels
+        puts "ページ" + params[:page]
+        @chats = Chat.where(prequel_chat_id: params[:id]).order(created_at: :DESC).page(params[:page]).per(gon.chat_pages)
+        puts @chats.all.count
+        update_total_views(@chats)
+        render partial: "user/chats/page", locals: { contents: @chats }
+    end
+
+    def comments
+        puts "ページ" + params[:page]
+        @comments = Comment.where(chat_id: params[:id]).order(created_at: :DESC).page(params[:page]).per(gon.comment_pages)
+        puts @comments.all.count
+        update_total_views(@comments)
+        render partial: "user/comments/page", locals: { contents: @comments }
+    end
+
     def new
         @chat = Chat.new()
     end
@@ -23,6 +39,8 @@ class User::ChatsController < User::Base
             @chat.user = current_user
         else
             @chat.host = @current_host
+            @chat.host.name = @chat.user_name
+            @chat.host.save!
         end
         
         session[:user_name] = params[:chat][:user_name]
@@ -47,8 +65,6 @@ class User::ChatsController < User::Base
                 messages: all_chats,
             })
         @chat.answer = response.dig("choices", 0, "message", "content")
-        @chat.host.name = @chat.user_name
-        @chat.host.save!
         puts "回答"
         puts response
 
@@ -61,6 +77,7 @@ class User::ChatsController < User::Base
             if @chat.present?
                 @new_chat = Chat.new(prequel_chat_id: params[:id])
                 @sequels =  @chat.sequels.page(params[:page]).per(1)
+                @uppers = @chat.uppers.order(created_at: :asc)
                 render "user/chats/show"
             else
                 @chat = Chat.new()
@@ -71,13 +88,17 @@ class User::ChatsController < User::Base
 
     def show
         @chat = Chat.find(params[:id])
+        gon.id = params[:id]
         @chat.update(total_views: @chat.total_views + 1)
-        @new_chat = Chat.new(room_id:@chat.room_id, prequel_chat_id: params[:id])
-        @sequels = @chat.sequels.page(params[:page]).per(1)
         @uppers = @chat.uppers.order(created_at: :asc)
         update_total_views(@uppers)
-        update_total_views(@sequels)
+
         @new_chat = Chat.new(room_id:@chat.room_id, prequel_chat_id: params[:id])
+        @sequels = @chat.sequels.page(params[:page]).order(created_at: :DESC).per(gon.chat_page)
+        update_total_views(@sequels)
+
+        @new_comment = Comment.new(chat_id: params[:id])
+        @comments = @chat.comments.page(params[:page]).order(created_at: :DESC).per(gon.comment_pages)
     end
 
     def chat_params

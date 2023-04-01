@@ -6,6 +6,7 @@ class CreateComments < ActiveRecord::Migration[6.1]
       t.references :host, index:true, foreign_key: true
       t.references :chat, null: false, index:true, foreign_key: true
       t.references :comment, index:true, foreign_key: true
+      t.text :body
 
       t.integer :total_views, default: 0, index: true
       t.integer :total_likes, default: 0, index: true

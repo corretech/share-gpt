@@ -9,6 +9,8 @@ class Chat < ApplicationRecord
     has_many :bottom_contexts, class_name: "Context", foreign_key: :upper_chat_id, dependent: :destroy
     has_many :uppers, through: :upper_contexts, source: :upper_chat
     has_many :bottoms, through: :bottom_contexts, source: :bottom_chat
+
+    has_many :comments
     validate :validate_prequel
     validate :check_host_name
 

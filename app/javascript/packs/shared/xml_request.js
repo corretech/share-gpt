@@ -7,6 +7,7 @@
         note: {body: "inputText"}  // 入力テキストを送信
         // authenticity_token: token  // セキュリティトークンの送信（ここから送信することも可能）
         };
+        console.log("xml")
         let data = JSON.stringify(hashData); // 送信用のjson形式に変換
         // Ajax通信を実行
         let xmlHR = new XMLHttpRequest();  // XMLHttpRequestオブジェクトの作成

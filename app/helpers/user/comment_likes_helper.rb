@@ -1,0 +1,2 @@
+module User::CommentLikesHelper
+end
