@@ -4,7 +4,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
-  config.cache_classes = true
+  config.cache_classes = false
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -63,7 +63,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "share_gpt_production"
 
   config.action_mailer.perform_caching = false
-  
+
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   config.action_mailer.raise_delivery_errors = true
