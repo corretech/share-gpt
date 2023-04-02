@@ -51,6 +51,6 @@ test:
 production:
   <<: *default
   database: share_gpt_production
-  username: share_gpt
-  password: <%= ENV['SHARE_GPT_DATABASE_PASSWORD'] %>
+  username: root
+  password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: /var/lib/mysql/mysql.sock
