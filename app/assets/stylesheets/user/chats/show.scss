@@ -4,8 +4,14 @@
     }
     .sequels_header{
         padding:0px 10px;
-        .label{
+        background-color: whitesmoke;
+        .label_area{
             display: inline;
+        }
+        .label{
+            background-color: white;
+            padding: 5px;
+            border-radius: 10px 10px 0px 0px;
         }
         .pagination{
             float: right;

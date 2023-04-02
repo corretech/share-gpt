@@ -17,6 +17,7 @@
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
+    <%= render "shared/loading_screen" %>
     <header>
       <nav>
         <ul>
@@ -40,14 +41,19 @@ $('.like_button').on('click', function() {
     $(this).children('span').text(Number($(this).children('span').text())+1)
     $(this).off();
 });
+$('.submit').on('click', function() {
+  $(".loading_screen").css("visibility","visible")
+});
 $(function() {
     $('.text').each(function(){
         var txt = $(this).html();
-        txt = txt.replace(/```\n/,'<pre><code>\n')
-        txt = txt.replace(/\n```/,'\n\n</pre></code>')
-        $(this).html(
-            txt
-        );
+        var count = ( txt.match( /```/g ) || [] ).length ;
+        for(i = 0; i <count; i++){
+          txt = txt.replace(/```\n/,'<pre><code>\n')
+          txt = txt.replace(/\n```/,'\n\n</pre></code>')
+        }
+        $(this).html(txt);
+        console.log(txt)
     });
 });
 $(document).ready(function() {

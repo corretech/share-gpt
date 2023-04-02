@@ -6,7 +6,7 @@
 
     <%if params[:bottom] == "comment" %>
     <div class="sequels_header">
-        <span><h3 class="label"><%= link_to "続きのチャット(#{@chat.sequels.count})", user_chat_path(@chat.id, bottom:"chat"),class:"link" %>　コメント(<%=@chat.comments.count%>)</h3></span>
+        <span><h3 class="label_area"><%= link_to "続きのチャット(#{@chat.sequels.count})", user_chat_path(@chat.id, bottom:"chat"),class:"link" %>　<span class="label">コメント(<%=@chat.comments.count%>)</span></h3></span>
     </div>
     <%= render "user/comments/new", comment:@new_comment%>
     <div class="sequel_chat_zone">
@@ -23,7 +23,7 @@
     </div>
     <% else %>
     <div class="sequels_header">
-        <span><h3 class="label">続きのチャット(<%=@chat.sequels.count%>)　<%= link_to "コメント(#{@chat.comments.count})", user_chat_path(@chat.id, bottom:"comment"),class:"link" %></h3></span>
+        <h3 class="label_area"><span class="label">続きのチャット(<%=@chat.sequels.count%>)</span>　<%= link_to "コメント(#{@chat.comments.count})", user_chat_path(@chat.id, bottom:"comment"),class:"link" %></h3>
     </div>
     <%= render "user/chats/new", chat:@new_chat%>
     <div class="sequel_chat_zone">
