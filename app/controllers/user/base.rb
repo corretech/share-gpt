@@ -29,8 +29,6 @@ class User::Base < ApplicationController
         )
         puts "保存"
         puts @current_host.name
-        if @current_host.save
-            session[:host_id] = @current_host.host_id
-        end
+        session[:host_id] = @current_host.host_id
     end
 end
