@@ -8,6 +8,8 @@ class Comment < ApplicationRecord
     validates :body, length: {maximum: :max_characters}, presence: true
     validate :check_host_name
 
+    after_save :update_parent_total_comments
+
     def max_characters
         1000
     end
@@ -16,5 +18,10 @@ class Comment < ApplicationRecord
         if self.host && !self.host.name.present?
             errors.add(:user_name)
         end
+    end
+
+    def update_parent_total_comments
+        self.chat.room.update_total_comments
+        self.chat.update_total_comments
     end
 end

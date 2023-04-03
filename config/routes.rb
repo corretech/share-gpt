@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   namespace :user do
-    get 'homes/index'
   end
-  root :to => 'user/chats#index'
+  root :to => 'user/homes#index'
   devise_for :users
   get 'pages/home'
   namespace :user do
+    get 'homes/page', to:"homes#page", as:"home_page"
+    get 'homes/index'
     get 'rooms/page', to:"rooms#page", as:"room_page"
     resources :rooms
     get 'chats/page', to:"chats#page", as:"chat_page"

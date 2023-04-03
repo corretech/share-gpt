@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
     t.integer "number"
     t.integer "total_views", default: 0
     t.integer "total_likes", default: 0
+    t.integer "total_comments", default: 0
     t.integer "total_chats", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
     t.index ["prequel_chat_id"], name: "index_chats_on_prequel_chat_id"
     t.index ["room_id"], name: "index_chats_on_room_id"
     t.index ["total_chats"], name: "index_chats_on_total_chats"
+    t.index ["total_comments"], name: "index_chats_on_total_comments"
     t.index ["total_likes"], name: "index_chats_on_total_likes"
     t.index ["total_views"], name: "index_chats_on_total_views"
     t.index ["user_id"], name: "index_chats_on_user_id"

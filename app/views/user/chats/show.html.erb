@@ -33,9 +33,11 @@
         <div class="sequel_chat_area" id="scroll_area">
             <% @sequels.each do |chat|%>
                 <%= render "user/chats/unit", chat:chat %>
+                <!--
                 <div class="chat_link_area">
                 <%= link_to "続き#{chat.bottoms.count}件", user_chat_path(chat.id), class:"chat_link"%>
                 </div>
+                -->
             <%end%>
         </div>
     </div>

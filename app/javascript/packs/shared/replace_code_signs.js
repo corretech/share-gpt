@@ -8,7 +8,7 @@
               txt = txt.replace(/```/,'\n</pre></code>')
             }
             $(this).html(txt);
-            console.log(txt)
+            //console.log(txt)
         });
         $('pre code').each(function(i, block) {
           hljs.highlightBlock(block);

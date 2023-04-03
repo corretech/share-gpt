@@ -3,8 +3,8 @@ class User::Base < ApplicationController
     before_action :set_default_value
 
     def set_default_value
-        gon.chat_pages = 4
-        gon.comment_pages = 2
+        gon.chat_pages = 10
+        gon.comment_pages = 10
         gon.is_loaded = true
     end
 

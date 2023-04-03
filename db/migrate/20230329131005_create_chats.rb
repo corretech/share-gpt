@@ -10,6 +10,7 @@ class CreateChats < ActiveRecord::Migration[6.1]
       t.integer :number
       t.integer :total_views, default: 0, index: true
       t.integer :total_likes, default: 0, index: true
+      t.integer :total_comments, default: 0, index: true
       t.integer :total_chats, default: 0, index: true
       t.timestamps
     end

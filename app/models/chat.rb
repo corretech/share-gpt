@@ -17,6 +17,7 @@ class Chat < ApplicationRecord
     before_validation :create_room
     before_validation :set_default_value
     after_save :create_contexts
+    after_save :update_parent_total_chats
 
     attr_accessor :user_name
 
@@ -72,5 +73,22 @@ class Chat < ApplicationRecord
                 )
             end
         end
+    end
+
+    def update_total_chats
+        self.update(total_chats: Chat.where(prequel: self).count)
+    end
+
+    def update_total_comments
+        self.update(total_comments: Comment.where(chat: self).count)
+    end
+    
+    def update_total_likes
+        self.update(total_likes: Like.where(chat: self).count)
+    end
+
+    def update_parent_total_chats
+        self.prequel.update_total_chats if self.prequel_chat_id
+        self.room.update_total_chats
     end
 end

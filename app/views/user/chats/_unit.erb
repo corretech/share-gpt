@@ -27,11 +27,19 @@
         <div class="right_aera">
             <p class="text"><%=chat.answer %></p>
             <div class="like_button_area">
-                <%= link_to(user_chat_likes_path(chat_id: chat.id), class: "like_area like_button bottom_component", id:"like_button", method: :post, remote: true) do%>
-                    <span class="far fa-thumbs-up" id="like_count"><%=chat.total_likes%></span>
-                <% end %>
-                <div class="view_area bottom_component">
-                    <span class="far fa-chart-bar" id="like_count"><%=chat.total_views%></span>
+                <div class="detail_area">
+                    <%= link_to(user_chat_likes_path(chat_id: chat.id), class: "like_area like_button bottom_component", id:"like_button", method: :post, remote: true) do%>
+                        <span class="far fa-thumbs-up" id="like_count"><%=chat.total_likes%></span>
+                    <% end %>
+                    <div class="view_area bottom_component">
+                        <span class="far fa-chart-bar" id="like_count"><%=chat.total_views%></span>
+                    </div>
+                    <div class="comment_area bottom_component">
+                        <span class="far fa-comment-alt" id="like_count"><%=chat.total_comments%></span>
+                    </div>
+                    <div class="chat_area bottom_component">
+                        <span class="far fa-comments" id="like_count"><%=chat.total_chats%></span>
+                    </div>
                 </div>
             </div>
         </div>

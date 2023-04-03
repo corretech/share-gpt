@@ -1,2 +1,14 @@
-<h1>User::Homes#index</h1>
-<p>Find me in app/views/user/homes/index.html.erb</p>
+<div class="room_index_file">
+    <%= render "user/chats/new", chat:@chat%>
+    <div class="chats_list_area" id="chats_list_area">
+        <% @chats.each do |chat|%>
+            <%= render "user/chats/unit", chat:chat %>
+        <%end%>
+    </div>
+</div>
+<%= javascript_pack_tag "shared/replace_code_signs" %>
+<%= javascript_pack_tag "shared/generate_color" %>
+<%= javascript_pack_tag "shared/insert_units" %>
+<%= javascript_pack_tag "shared/check_scroll" %>
+<%= javascript_pack_tag "shared/xml_request" %>
+<%= javascript_pack_tag "user/homes/index" %>

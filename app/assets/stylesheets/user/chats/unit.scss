@@ -64,20 +64,34 @@
             float: left;
             position: relative;
             height: 30px;
-            .bottom_component{
+            .detail_area{
                 position: absolute;
                 top: 10px;
                 color: gray;
-            }
-            .like_button{
-                left: 10px;
-                z-index: 1;
-            }
-            .view_area{
-                left: 50px;
-            }
-            .like_button:hover{
-                color: darkgray;
+                .bottom_component{
+                    //position: absolute;
+                    //top: 10px;
+                    text-decoration: none;
+                    color: gray;
+                    display: inline;
+                    margin-right: 10px;
+                }
+                .like_button{
+                    left: 10px;
+                    z-index: 1;
+                }
+                .view_area{
+                    left: 50px;
+                }
+                .comment_area{
+                    left: 100px;
+                }
+                .chat_area{
+                    left: 150px;
+                }
+                .like_button:hover{
+                    color: darkgray;
+                }
             }
         }
     }    

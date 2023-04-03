@@ -5,7 +5,11 @@
       <div class="input_field_area">
       
       <%= f.text_field :user_name, placeholder:"ユーザー名", maximum: Host.new.max_name_length, value:session[:user_name], class:"user_name input_field" %></br></br>
+      <%if chat.prequel_chat_id.present? %>
       <%= f.text_area :question, placeholder:"続きの質問", maximum: chat.max_characters, autocomplete: "new-password", class:"input_field text_area",value:"" ,required: true%>
+      <%else%>
+      <%= f.text_area :question, placeholder:"質問", maximum: chat.max_characters, autocomplete: "new-password", class:"input_field text_area",value:"" ,required: true%>
+      <%end%>
 
       <!--送信ボタン -->
       <%= f.submit "　　", class:"submit", id:"submit" %>

@@ -7,6 +7,6 @@ class ChatLike < ApplicationRecord
     after_commit :update_total_likes
 
     def update_total_likes
-        self.chat.update(total_likes: ChatLike.where(chat_id: self.chat_id).count)
+        self.update_total_likes
     end
 end
