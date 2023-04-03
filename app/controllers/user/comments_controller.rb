@@ -16,7 +16,8 @@ class User::CommentsController < User::Base
             @comment.user = current_user
         else
             @comment.host = @current_host
-            save_host
+            @comment.host.name = @comment.user_name
+            @comment.host.save!
         end
 
         if @comment.save

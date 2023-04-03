@@ -3,8 +3,8 @@ class User::Base < ApplicationController
     before_action :set_default_value
 
     def set_default_value
-        gon.chat_pages = 10
-        gon.comment_pages = 10
+        gon.chat_pages = 5
+        gon.comment_pages = 5
         gon.is_loaded = true
     end
 
@@ -34,6 +34,7 @@ class User::Base < ApplicationController
 
     def save_host
         @current_host.name = @chat.user_name if defined? @chat
+        @current_host.name = @comment.user_name if defined? @comment
         @current_host.save!
     end
 end
