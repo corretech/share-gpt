@@ -21,7 +21,7 @@
     <header>
       <nav>
         <ul>
-          <li><a href="#">ShareGPT</a></li>
+          <li><%= link_to "ShareGPT", root_path %></li>
           <li><%= link_to "新規作成", new_user_chat_path %></li>
           <li><%= link_to "新規一覧", user_rooms_path %></li>
           <li><%= link_to "最近のchat", user_chats_path %></li>
@@ -43,22 +43,5 @@ $('.like_button').on('click', function() {
 });
 $('.submit').on('click', function() {
   $(".loading_screen").css("visibility","visible")
-});
-$(function() {
-    $('.text').each(function(){
-        var txt = $(this).html();
-        var count = ( txt.match( /```/g ) || [] ).length ;
-        for(i = 0; i <count; i++){
-          txt = txt.replace(/```\n/,'<pre><code>\n')
-          txt = txt.replace(/\n```/,'\n\n</pre></code>')
-        }
-        $(this).html(txt);
-        console.log(txt)
-    });
-});
-$(document).ready(function() {
-  $('pre code').each(function(i, block) {
-    hljs.highlightBlock(block);
-  });
 });
 </script>

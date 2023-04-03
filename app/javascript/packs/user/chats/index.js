@@ -1,5 +1,6 @@
 var insert_elements = function(response, scroll_element){
-    scroll_element.insertAdjacentHTML('beforeend', response)
+    scroll_element.insertAdjacentHTML('beforeend', response);
+    raplace_code_signs();
   }
 var loaded_pages  = []
 $(window).on('scroll', function(){
@@ -9,12 +10,12 @@ $(window).on('scroll', function(){
         windowHeight = $(window).innerHeight(), //ウィンドウの高さ
         pageBottom = docHeight - windowHeight - 0.5; //ドキュメントの高さ - ウィンドウの高さ
 
-        total_units = document.getElementsByClassName("chat_unit").length
-        page = Math.ceil(total_units/gon.chat_pages)+1
+        total_units = document.getElementsByClassName("chat_unit").length;
+        page = Math.ceil(total_units/gon.chat_pages)+1;
         //ウィンドウの一番下までスクロールした時 && スクロール位置が変化した
     if(check_scroll() && !loaded_pages.includes(page)) {
-        loaded_pages.unshift(page)
+        loaded_pages.unshift(page);
         scrollTo(0, pageBottom + 10);
-        xml_request(`chats/page`, page, chats_list_area,  insert_elements, null);
+        xml_request(`/user/chats/page`, page, chats_list_area,  insert_elements, null);
     }
 });

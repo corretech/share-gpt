@@ -6,7 +6,13 @@
     <div class="question_area chat_component">
         <div class="icon_area">
             <div class="icon">
-                <span>hasehasehase</span>
+                <span>
+                <%if chat.user_id.present?%>
+                <%=chat.user.name%>
+                <% elsif chat.host_id.present?%>
+                <%=chat.host.name %>
+                <% end %>
+                </span>
             </div>
         </div>
         <div class="right_aera">
@@ -33,5 +39,7 @@
         </div>
     </div>
 </div>
+<%= javascript_pack_tag "shared/replace_code_signs" %>
 <script>
+raplace_code_signs()
 </script>
