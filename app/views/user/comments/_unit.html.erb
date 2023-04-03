@@ -2,8 +2,12 @@
     <div class="answer_area comment_component">
         <div class="icon_area">
             <div class="icon">
-                <span>hasehasehase</span>
-            </div>
+                <%if comment.user_id.present?%>
+                <%=comment.user.name%>
+                <% elsif comment.host_id.present?%>
+                <%=comment.host.name %>
+                <% end %>
+                </div>
         </div>
         <div class="right_aera">
             <p class="text"><%=comment.body%></p>
