@@ -9,10 +9,10 @@ class User::Base < ApplicationController
     end
 
     def check_session
-        if session[:user_id].present?
+        if session[:host_id].present?
             puts "旧セッション"
-            puts session[:user_id]
-            @current_host = Host.find_by(source: session[:user_id])
+            puts session[:host_id]
+            @current_host = Host.find_by(host_id:session[:host_id])
             if !@current_host.present?
                 create_user
             end
@@ -24,12 +24,13 @@ class User::Base < ApplicationController
     def create_user
         puts "新セッション"
         ip_address = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip
-        session[:user_id] = ip_address
         @current_host = Host.new(
             source: ip_address.to_s
         )
         puts "保存"
         puts @current_host.name
-        puts @current_host.save
+        if @current_host.save
+            session[:host_id] = @current_host.host_id
+        end
     end
 end

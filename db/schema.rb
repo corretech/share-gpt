@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
   end
 
   create_table "hosts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "host_id", null: false
     t.string "source"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -143,6 +144,7 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "name"
+    t.string "user_id", null: false
     t.text "description"
     t.string "image"
     t.integer "total_views", default: 0

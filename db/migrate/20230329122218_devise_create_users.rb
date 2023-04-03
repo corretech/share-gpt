@@ -33,6 +33,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       # t.datetime :locked_at
 
       t.string :name, index: true
+      t.string :user_id, null: false
       t.text :description
       t.string :image
       t.integer :total_views, default: 0, index: true

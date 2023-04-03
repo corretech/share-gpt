@@ -39,8 +39,8 @@ class User::ChatsController < User::Base
             @chat.user = current_user
         else
             @chat.host = @current_host
-            @chat.host.name = @chat.user_name
-            @chat.host.save!
+            @current_host.name = @chat.user_name
+            @current_host.save!
         end
         
         session[:user_name] = params[:chat][:user_name]
