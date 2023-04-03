@@ -94,7 +94,9 @@ class User::ChatsController < User::Base
         update_total_views(@uppers)
 
         @new_chat = Chat.new(room_id:@chat.room_id, prequel_chat_id: params[:id])
-        @sequels = @chat.sequels.page(params[:page]).order(created_at: :DESC).per(gon.chat_page)
+        puts "ページ"
+        puts gon.chat_pages
+        @sequels = @chat.sequels.page(params[:page]).order(created_at: :DESC).per(gon.chat_pages)
         update_total_views(@sequels)
 
         @new_comment = Comment.new(chat_id: params[:id])

@@ -16,6 +16,6 @@ $(window).on('scroll', function(){
     if(check_scroll() && !loaded_pages.includes(page)) {
         loaded_pages.unshift(page);
         scrollTo(0, pageBottom + 10);
-        xml_request(`rooms/page`, page, chats_list_area,  insert_elements, null);
+        xml_request(`rooms/page`, page, chats_list_area,  insert_units, null);
     }
 });

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :user do
+    get 'homes/index'
+  end
   root :to => 'user/chats#index'
   devise_for :users
   get 'pages/home'
