@@ -31,4 +31,9 @@ class User::Base < ApplicationController
         puts @current_host.name
         session[:host_id] = @current_host.host_id
     end
+
+    def save_host
+        @current_host.name = @chat.user_name if defined? @chat
+        @current_host.save!
+    end
 end

@@ -4,9 +4,9 @@ class ChatLike < ApplicationRecord
     belongs_to :chat, class_name: 'Chat', foreign_key: :chat_id
     validates :chat_id, uniqueness: { scope: [:user_id, :host_id] }
 
-    after_commit :update_total_likes
+    after_commit :update_parent_total_likes
 
-    def update_total_likes
-        self.update_total_likes
+    def update_parent_total_likes
+        self.chat.update_total_likes
     end
 end

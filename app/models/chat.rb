@@ -84,7 +84,7 @@ class Chat < ApplicationRecord
     end
     
     def update_total_likes
-        self.update(total_likes: Like.where(chat: self).count)
+        self.update(total_likes: ChatLike.where(chat: self).count)
     end
 
     def update_parent_total_chats

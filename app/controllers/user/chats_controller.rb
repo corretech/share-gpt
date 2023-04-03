@@ -39,8 +39,6 @@ class User::ChatsController < User::Base
             @chat.user = current_user
         else
             @chat.host = @current_host
-            @current_host.name = @chat.user_name
-            @current_host.save!
         end
         
         session[:user_name] = params[:chat][:user_name]
@@ -68,7 +66,7 @@ class User::ChatsController < User::Base
         puts "回答"
         puts response
 
-        if @chat.save
+        if save_host && @chat.save
             flash.alert = "送信しました"
             redirect_to user_chat_path(@chat.id)
         else
