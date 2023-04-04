@@ -40,3 +40,16 @@ window.addEventListener('scroll', check_elements);
 //    console.log("クリック")
 //    window.removeEventListener('scroll',check_elements)
 //})
+
+//スクロール単体はできるがロード後にスクロールはできない
+function scrollToTop() {
+    console.log("aa")
+    var
+    $target = $('#main_unit'),
+    offset = $target.offset() || {top: 0, left: 0},
+    outerHeight = $target.outerHeight();
+    $(window).scrollTop(offset.top - window.innerHeight + outerHeight);
+ }
+$(window).on('load',function() {
+ scrollToTop()
+});

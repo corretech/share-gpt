@@ -2,7 +2,9 @@
     <% @uppers.each do |chat|%>
         <%= render "user/chats/unit", chat:chat %>
     <%end%>
-    <%= render "user/chats/unit", chat:@chat, hide_link:true %>
+    <div id="main_unit">
+        <%= render "user/chats/unit", chat:@chat, hide_link:true %>
+    </div>
 
     <%if params[:bottom] == "comment" %>
     <div class="sequels_header">
@@ -44,3 +46,6 @@
     <% end %>
     <%= javascript_pack_tag "user/chats/show" %>
 </div>
+<script>
+
+</script>
