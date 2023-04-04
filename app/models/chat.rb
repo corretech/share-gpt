@@ -10,6 +10,9 @@ class Chat < ApplicationRecord
     has_many :uppers, through: :upper_contexts, source: :upper_chat
     has_many :bottoms, through: :bottom_contexts, source: :bottom_chat
 
+    has_many :chat_categories, class_name: "ChatCategory", foreign_key: :chat_id, dependent: :destroy
+    has_many :categories, through: :chat_categories
+
     has_many :comments
     validate :validate_prequel
     validate :check_host_name
@@ -18,6 +21,7 @@ class Chat < ApplicationRecord
     before_validation :set_default_value
     after_save :create_contexts
     after_save :update_parent_total_chats
+    after_create :categorize_chat
 
     attr_accessor :user_name
 
@@ -52,6 +56,10 @@ class Chat < ApplicationRecord
                 end
             end
         end
+    end
+
+    def categorize_chat
+        categorize(self)
     end
 
     def check_host_name

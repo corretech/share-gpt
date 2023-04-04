@@ -1,15 +1,22 @@
 class User::ChatsController < User::Base
     #require "openai"
     def index
-        @chats = Chat.all.order(created_at: :DESC).page(params[:page]).per(gon.chat_pages)
-        update_total_views(@chats)
+        @chats = Chat.all
+        if @category.present?
+            @chats = @category.chats
+        elsif params[:category_id] == "popular"
+            @chats = @chats.where("? < created_at", DateTime.now - 30)
+            @chats = @chats.order(total_likes: :DESC)
+        end
+        @chats = @chats.order(created_at: :DESC).page(params[:page]).per(gon.chat_pages)
+        #update_total_views(@chats)
     end
 
     def page
         puts "ページ" + params[:page]
         @chats = Chat.all.order(created_at: :DESC).page(params[:page]).per(gon.chat_pages)
         puts @chats.all.count
-        update_total_views(@chats)
+        #update_total_views(@chats)
         render partial: "user/chats/page", locals: { contents: @chats }
     end
 

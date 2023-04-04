@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_29_150021) do
+ActiveRecord::Schema.define(version: 2023_04_04_130507) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,18 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "parent_category_id"
+    t.integer "total_access", default: 0
+    t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
+  end
+
+  create_table "chat_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.bigint "chat_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_chat_categories_on_category_id"
+    t.index ["chat_id"], name: "index_chat_categories_on_chat_id"
   end
 
   create_table "chat_likes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -165,6 +177,9 @@ ActiveRecord::Schema.define(version: 2023_03_29_150021) do
     t.index ["total_views"], name: "index_users_on_total_views"
   end
 
+  add_foreign_key "categories", "categories", column: "parent_category_id"
+  add_foreign_key "chat_categories", "categories"
+  add_foreign_key "chat_categories", "chats"
   add_foreign_key "chat_likes", "chats"
   add_foreign_key "chat_likes", "hosts"
   add_foreign_key "chat_likes", "users"

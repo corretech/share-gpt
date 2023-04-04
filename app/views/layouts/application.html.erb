@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ShareGpt</title>
+    <title>ShareGPT</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -29,13 +29,16 @@
         <ul>
           <li><%= link_to "ShareGPT", root_path %></li>
           <li><%= link_to "新規作成", new_user_chat_path %></li>
+          <!--
           <li><%= link_to "新規一覧", user_rooms_path %></li>
           <li><%= link_to "最近のchat", user_chats_path %></li>
+          -->
         </ul>
       </nav>
       <div class="flash_alert_zone flash_zone">
         <%= content_tag(:spin, flash.alert, class:"alert") if flash.alert%>
       </div>
+      <%= render "shared/category_bar" %>
       <%= render "shared/error_message", model: @model%>
     </header>
     <%= yield %>

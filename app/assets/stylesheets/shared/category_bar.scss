@@ -1,0 +1,19 @@
+.category_bar_file{
+    background-color: white;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 40px;
+    display: flex;
+    .button{
+		background-color: #333;
+        margin: 5px 10px;
+        padding: 5px 10px;
+        display: inline-block;
+        border-radius:  3px;
+        overflow-x: hidden;
+        flex-shrink: 0;
+    }
+    .button:hover{
+        background-color: dimgray;
+    }
+}

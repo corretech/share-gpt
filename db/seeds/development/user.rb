@@ -1,0 +1,2 @@
+User.create(email:ENV["USER_EMAIL"], password:ENV["USER_PASSWORD"], password_confirmation: ENV["USER_PASSWORD"])
+User.create(email:ENV["USER_EMAIL2"], password:ENV["USER_PASSWORD"], password_confirmation: ENV["USER_PASSWORD"])
