@@ -25,7 +25,11 @@
             </svg>
         </div>
         <div class="right_aera">
-            <p class="text"><%=chat.answer %></p>
+            <% if !defined? limit_lines %>
+                <p class="text"><%=chat.answer %></p>
+            <% else %>
+                <p class="text limit_lines"><%=chat.answer %></p>
+            <% end %>
             <div class="like_button_area">
                 <div class="detail_area">
                     <%= link_to(user_chat_likes_path(chat_id: chat.id), class: "like_area like_button bottom_component", id:"like_button", method: :post, remote: true) do%>
@@ -47,6 +51,7 @@
 </div>
 <script>
 raplace_code_signs()
+limit_lines()
   // 入力した文字列を数値に変換
   $(".icon").css('background-color', function(){
     var color = generate_color($(this).html())

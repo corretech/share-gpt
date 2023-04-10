@@ -1,7 +1,7 @@
 <div class="chat_index_file">
     <div class="chats_list_area" id="chats_list_area">
         <% @chats.each do |chat|%>
-            <%= render "user/chats/unit", chat:chat %>
+            <%= render "user/chats/unit", chat:chat, limit_lines:true %>
         <%end%>
     </div>
 </div>

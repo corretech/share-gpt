@@ -18,13 +18,15 @@
     .chat_link:hover ~ .answer_area{
         background-color: rgb(230, 230,230);
     }
+    .question_area{
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
     .answer_area{
         border-bottom-width: 1px;
         //width: 100%;
         --tw-bg-opacity: 1;
         background-color: rgba(247,247,248,var(--tw-bg-opacity));
         border-color: rgba(0,0,0,.1);
-        border-top: 1px solid rgba(0,0,0,.1);
         border-bottom: 1px solid rgba(0,0,0,.1);
         .svg_area{
     
@@ -56,6 +58,13 @@
                 float: none;
                 overflow-wrap: break-word;
                 white-space: pre-line;
+            }
+            .limit_lines{
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3; /* 制限したい行数が3の場合 */
+                overflow: hidden;
+                max-height: 70px;
             }
         }
         .like_button_area{
