@@ -25,6 +25,9 @@
             </svg>
         </div>
         <div class="right_aera">
+            <%if chat.ai_method.name == "generate_image" &&  chat.image_url %>
+                <%= image_tag chat.image_url, class:"image" %>
+            <%end%>
             <% if !defined? limit_lines %>
                 <p class="text"><%=chat.answer %></p>
             <% else %>

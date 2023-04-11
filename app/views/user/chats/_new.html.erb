@@ -1,12 +1,18 @@
 <div class="chat_new_component">
-<%= form_with model:  chat, url:user_chats_path, method:"POST" do |f| %>
+<%= form_with model:  chat, url:user_chats_path, id:"form", method:"POST" do |f| %>
       
     <div class="field_area">
       <div class="input_field_area">
-      
       <%= f.text_field :user_name, placeholder:"ユーザー名", maximum: Host.new.max_name_length, value:session[:user_name], class:"user_name input_field" %></br></br>
+      <% if  defined? select_method %>
+        <div class="ai_method_area">
+        <%= f.check_box :generate_chat_box, checked:true, class:"chat_checkbox checkbox" %><%= f.label :generate_chat, class:"check_label" %>
+        <%= f.check_box :generate_image_box, class:"image_checkbox checkbox" %><%= f.label :generate_image, class:"check_label" %>
+        </div>
+      <% end %>
+      <%= f.hidden_field :ai_method_id,value:AiMethod.find_by(name:"generate_chat").id, id:"ai_method_field" %>
       <%if chat.prequel_chat_id.present? %>
-      <%= f.text_area :question, placeholder:"続きの質問", required: true, maximum: chat.max_characters, autocomplete: "new-password", class:"input_field text_area",value:"" ,required: true%>
+      <%= f.text_area :question, placeholder:"続きの質問", required: true, maximum: chat.max_characters, autocomplete: "new-password", class:"input_field text_area", value:"", required: true%>
       <%else%>
       <%= f.text_area :question, placeholder:"質問", required: true, maximum: chat.max_characters, autocomplete: "new-password", class:"input_field text_area",value:"" ,required: true%>
       <%end%>
@@ -41,4 +47,49 @@ window.addEventListener("DOMContentLoaded", () => {
     this.style.height = `${this.scrollHeight}px`;
   }
 });
+$(document).ready(function() {
+    $('.chat_checkbox').change(function() {
+        if ($(this).prop("checked")) {
+          $('.image_checkbox').prop("checked",false)
+          //$(".form").attr('action',"<%=user_chats_path%>")
+        }else{
+          $('.image_checkbox').prop("checked",true)
+        }
+        check_action()
+    });
+    $('.image_checkbox').change(function() {
+        if ($(this).prop("checked")) {
+          $('.chat_checkbox').prop("checked",false)
+          //$(".form").attr('action',"<%=user_chats_path%>")
+        }else{
+          $('.chat_checkbox').prop("checked",true)
+        }
+        check_action()
+    });
+});
+
+function check_action(){
+  if ($('.chat_checkbox').prop("checked")) {
+    $('.text_area').attr("placeholder" , "質問")
+    $('#ai_method_field').val("<%=AiMethod.find_by(name:'generate_chat').id%>")
+    //$(".form").attr('action',"<%=user_chats_path%>")
+  }else{
+    $('.text_area').attr("placeholder" , "画像内容")
+    $('#ai_method_field').val("<%=AiMethod.find_by(name:'generate_image').id%>")
+  }
+  if ($('.image_checkbox').prop("checked")) {
+    $('.text_area').attr("placeholder" , "画像内容")
+    $('#ai_method_field').val("<%=AiMethod.find_by(name:'generate_image').id%>")
+    //$(".form").attr('action',"<%=user_chats_path%>")
+  }else{
+    $('.text_area').attr("placeholder" , "質問")
+    $('#ai_method_field').val("<%=AiMethod.find_by(name:'generate_chat').id%>")
+  }
+  console.log("演算")
+  console.log(false*false)
+  console.log(false*true)
+  console.log(true*true)
+  console.log( $('#ai_method_field').val())
+}
+check_action()
 </script>

@@ -7,6 +7,7 @@ shiritori = [
 Room.create(user_id:1, )
 2.times do |n|
     Chat.create(
+        ai_method:AiMethod.find_by(name:"generate_chat"),
         room_id:1, 
         user_id:1, 
         prequel: Chat.last, 
@@ -19,6 +20,7 @@ end
 chat = Chat.find_by(question: "しりとりしよう")
 Chat.create(
     room_id: chat.room_id,
+    ai_method:AiMethod.find_by(name:"generate_chat"),
     user_id: 1,
     prequel: chat, 
     question:"ごま",
@@ -28,6 +30,7 @@ Chat.create(
 chat = Chat.find_by(question: "ごま")
 Chat.create(
     room_id: chat.room_id,
+    ai_method:AiMethod.find_by(name:"generate_chat"),
     user_id: 1,
     prequel: chat, 
     question:"ケーキ",
@@ -37,6 +40,7 @@ Chat.create(
 chat = Chat.find_by(question: "ケーキ")
 Chat.create(
     room_id: chat.room_id,
+    ai_method:AiMethod.find_by(name:"generate_chat"),
     user_id: 1,
     prequel: chat, 
     question:"うさぎ",

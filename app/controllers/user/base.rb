@@ -37,4 +37,18 @@ class User::Base < ApplicationController
         @current_host.name = @comment.user_name if defined? @comment
         @current_host.save!
     end
+
+    def search_chat
+        if @category.present?
+            @chats = @category.chats.order(created_at: :DESC)
+        elsif params[:category_id] == "popular"
+            @chats = @chats.where("? < created_at", DateTime.now - 30)
+            @chats = @chats.order(total_likes: :DESC)
+        end
+        puts "AIメソッド"
+        if @ai_method.present?
+            puts @ai_method.name
+            @chats = @ai_method.chats
+        end
+    end
 end

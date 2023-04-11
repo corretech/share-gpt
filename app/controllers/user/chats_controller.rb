@@ -2,19 +2,16 @@ class User::ChatsController < User::Base
     #require "openai"
     def index
         @chats = Chat.all
-        if @category.present?
-            @chats = @category.chats
-        elsif params[:category_id] == "popular"
-            @chats = @chats.where("? < created_at", DateTime.now - 30)
-            @chats = @chats.order(total_likes: :DESC)
-        end
-        @chats = @chats.order(created_at: :DESC).page(params[:page]).per(gon.chat_pages)
+        search_chat
+        @chats = @chats.page(params[:page]).per(gon.chat_pages)
         #update_total_views(@chats)
     end
 
     def page
         puts "ページ" + params[:page]
-        @chats = Chat.all.order(created_at: :DESC).page(params[:page]).per(gon.chat_pages)
+        @chats = Chat.all
+        search_chat
+        @chats = @chats.all.order(created_at: :DESC).page(params[:page]).per(gon.chat_pages)
         puts @chats.all.count
         #update_total_views(@chats)
         render partial: "user/chats/page", locals: { contents: @chats }
@@ -46,10 +43,50 @@ class User::ChatsController < User::Base
             @chat.user = current_user
         else
             @chat.host = @current_host
+            session[:user_name] = params[:chat][:user_name]
         end
         
-        session[:user_name] = params[:chat][:user_name]
-        
+        if @chat.generate_chat
+            generate_chat
+        end
+
+        puts "イメージ生成"
+        puts @chat.generate_image
+        if @chat.generate_image
+            puts "イメージを生成中"
+            generate_image
+        end
+
+        if save_host && @chat.save
+            flash.alert = "送信しました"
+            redirect_to user_chat_path(@chat.id)
+        elsif true #Rails.env.production?
+            @model = @chat
+            @chat = @chat.prequel
+            if @chat.present?
+                @new_chat = Chat.new(prequel_chat_id: params[:id])
+                @sequels =  @chat.sequels.page(params[:page]).per(1)
+                @uppers = @chat.uppers.order(created_at: :asc)
+                render "user/chats/show"
+            else
+                @chat = Chat.new()
+                render "user/chats/new"
+            end
+        end
+    end
+
+    def generate_image
+        url = "http://127.0.0.1:5000/image/#{URI.encode_www_form_component(@chat.question)}"
+        html = URI.open(url) do |f|
+            charset = f.charset
+            url = f.read
+        end
+        @chat.original_image = url
+        puts "イメージ"
+        puts url
+    end
+
+    def generate_chat
         if @chat.prequel
             all_chats = chats_to_hash(@chat.prequel.uppers.order(created_at: :asc))
             all_chats.push({role: "user", content: @chat.prequel.question})
@@ -72,23 +109,6 @@ class User::ChatsController < User::Base
         @chat.answer = response.dig("choices", 0, "message", "content")
         puts "回答"
         puts response
-
-        if save_host && @chat.save
-            flash.alert = "送信しました"
-            redirect_to user_chat_path(@chat.id)
-        else
-            @model = @chat
-            @chat = @chat.prequel
-            if @chat.present?
-                @new_chat = Chat.new(prequel_chat_id: params[:id])
-                @sequels =  @chat.sequels.page(params[:page]).per(1)
-                @uppers = @chat.uppers.order(created_at: :asc)
-                render "user/chats/show"
-            else
-                @chat = Chat.new()
-                render "user/chats/new"
-            end
-        end
     end
 
     def show
@@ -113,6 +133,9 @@ class User::ChatsController < User::Base
             :user_name,
             :prequel_chat_id,
             :question,
+            #:generate_image,
+            #:generate_chat,
+            :ai_method_id,
         )
     end
 end

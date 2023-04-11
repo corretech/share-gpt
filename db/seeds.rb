@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-common_table_names = %w(category)
+common_table_names = %w(category ai_method)
 common_table_names.each do |table_name|
     path = Rails.root.join("db", "seeds", "#{table_name}.rb")
     if File.exist?(path)

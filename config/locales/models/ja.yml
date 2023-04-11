@@ -23,3 +23,5 @@ ja:
         chat: チャット
         prequel: 前のチャット
         likes: いいね
+        generate_chat: チャット生成
+        generate_image: 画像生成

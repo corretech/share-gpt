@@ -1,6 +1,6 @@
 var insert_elements = function(response, scroll_element){
     scroll_element.insertAdjacentHTML('beforeend', response);
-    ();
+    raplace_code_signs();
   }
   console.log(gon.id)
 if(get_param("bottom") == "comment"){

@@ -1,7 +1,10 @@
 class Chat < ApplicationRecord
+    require 'open-uri'
+    mount_uploader :image, ImageUploader
     belongs_to :user, optional: true
     belongs_to :host, optional: true
     belongs_to :room
+    belongs_to :ai_method
     belongs_to :prequel, class_name: 'Chat', foreign_key: :prequel_chat_id, optional: true
     has_many :sequels, class_name: "Chat", dependent: :destroy, foreign_key: :prequel_chat_id
     has_many :likes, class_name: "ChatLike", dependent: :destroy
@@ -19,18 +22,48 @@ class Chat < ApplicationRecord
 
     before_validation :create_room
     before_validation :set_default_value
+    before_validation :save_image
     after_save :create_contexts
     after_save :update_parent_total_chats
     after_create :categorize_chat
 
     attr_accessor :user_name
+    attr_accessor :generate_image
+    attr_accessor :generate_chat
 
     validates :question, length: {maximum: :max_characters}, presence: true
     def max_characters
         2500
     end
 
+    after_initialize do |chat|
+        set_values_by_rules
+    end
+
+    def save_image
+        if self.generate_image
+            self.remote_image_url = self.original_image
+        end
+    end
+
+    def set_values_by_rules
+        if self.ai_method_id
+            self.generate_image = self.ai_method.name == "generate_image"
+            self.generate_chat = self.ai_method.name == "generate_chat"
+        end
+        #画像を生成するなら前のチャットはなし
+        if self.ai_method.present? && self.ai_method.name == "generate_image"
+            self.prequel = nil
+        end
+        #前のチャットが画像生成なら前のチャットにできない
+        if self.prequel.present? && self.prequel.ai_method.name == "generate_image"
+            self.prequel = nil
+        end
+    end
+
     def set_default_value
+        set_values_by_rules
+        #チャットの番号を定義
         if self.prequel.present?
             self.number = self.prequel.uppers.count + 2
         else

@@ -6,43 +6,47 @@
         <%= render "user/chats/unit", chat:@chat, hide_link:true %>
     </div>
 
-    <%if params[:bottom] == "comment" %>
-    <div class="sequels_header">
-        <span><h3 class="label_area"><%= link_to "続きのチャット(#{@chat.sequels.count})", user_chat_path(@chat.id, bottom:"chat"),class:"link" %>　<span class="label">コメント(<%=@chat.comments.count%>)</span></h3></span>
-    </div>
-    <%= render "user/comments/new", comment:@new_comment%>
-    <div class="sequel_chat_zone">
-        <div class="border_area">
-            <div class="border"></div>
+    <%if params[:bottom] == "comment" || @chat.ai_method.name == "generate_image" %>
+        <div class="sequels_header">
+            <span><h3 class="label_area">
+            <%if @chat.ai_method.name != "generate_image" %>
+            <%= link_to "続きのチャット(#{@chat.sequels.count})", user_chat_path(@chat.id, bottom:"chat"),class:"link" %>　
+            <% end %>
+            <span class="label">コメント(<%=@chat.comments.count%>)</span></h3></span>
         </div>
-        <div class="sequel_chat_area" id="scroll_area">
-            <% @comments.each do |comment|%>
-                <div>
-                <%= render "user/comments/unit", comment:comment %>
-                </div>
-            <%end%>
+        <%= render "user/comments/new", comment:@new_comment%>
+        <div class="sequel_chat_zone">
+            <div class="border_area">
+                <div class="border"></div>
+            </div>
+            <div class="sequel_chat_area" id="scroll_area">
+                <% @comments.each do |comment|%>
+                    <div>
+                    <%= render "user/comments/unit", comment:comment %>
+                    </div>
+                <%end%>
+            </div>
         </div>
-    </div>
-    <% else %>
-    <div class="sequels_header">
-        <h3 class="label_area"><span class="label">続きのチャット(<%=@chat.sequels.count%>)</span>　<%= link_to "コメント(#{@chat.comments.count})", user_chat_path(@chat.id, bottom:"comment"),class:"link" %></h3>
-    </div>
-    <%= render "user/chats/new", chat:@new_chat%>
-    <div class="sequel_chat_zone">
-        <div class="border_area">
-            <div class="border"></div>
+    <% elsif @chat.ai_method.name == "generate_chat" %>
+        <div class="sequels_header">
+            <h3 class="label_area"><span class="label">続きのチャット(<%=@chat.sequels.count%>)</span>　<%= link_to "コメント(#{@chat.comments.count})", user_chat_path(@chat.id, bottom:"comment"),class:"link" %></h3>
         </div>
-        <div class="sequel_chat_area" id="scroll_area">
-            <% @sequels.each do |chat|%>
-                <%= render "user/chats/unit", chat:chat %>
-                <!--
-                <div class="chat_link_area">
-                <%= link_to "続き#{chat.bottoms.count}件", user_chat_path(chat.id), class:"chat_link"%>
-                </div>
-                -->
-            <%end%>
+        <%= render "user/chats/new", chat:@new_chat%>
+        <div class="sequel_chat_zone">
+            <div class="border_area">
+                <div class="border"></div>
+            </div>
+            <div class="sequel_chat_area" id="scroll_area">
+                <% @sequels.each do |chat|%>
+                    <%= render "user/chats/unit", chat:chat %>
+                    <!--
+                    <div class="chat_link_area">
+                    <%= link_to "続き#{chat.bottoms.count}件", user_chat_path(chat.id), class:"chat_link"%>
+                    </div>
+                    -->
+                <%end%>
+            </div>
         </div>
-    </div>
     <% end %>
     <%= javascript_pack_tag "user/chats/show" %>
 </div>

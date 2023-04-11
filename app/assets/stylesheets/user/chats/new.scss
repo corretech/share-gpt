@@ -68,6 +68,26 @@
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     height: 100%;
     position: relative;
+    .ai_method_area{
+        margin-bottom: 10px;
+    }
+    .check_label{
+        margin-right: 10px;
+    }
+    .checkbox{
+        width: 1.5em;
+        height: 1.5em;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        vertical-align: middle;
+        border: 0px solid whitesmoke;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+    }
+    .checkbox:checked{
+        background-color: rgba(0, 0, 0, 0.2);
+    }
 }
 
 .submit{

@@ -1,5 +1,12 @@
 <div class="category_bar_file">
     <%= link_to "最近", user_chats_path, class:"button" %>
+    <%if params[:ai_method] != "generate_image" %>
+    <%= link_to "画像", user_rooms_path(ai_method:"generate_image"), class:"button" %>
+    <% end %>
+
+    <%if params[:ai_method] != "generate_chat" %>
+    <%= link_to "チャット", user_rooms_path(ai_method:"generate_chat"), class:"button" %>
+    <% end %>
     <%= link_to "人気", user_chats_path(category_id: "popular"), class:"button" %>
     <%= link_to "新規", user_rooms_path, class:"button" %>
     <% @categories.each do |category| %>

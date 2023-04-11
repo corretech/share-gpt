@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_04_130507) do
+ActiveRecord::Schema.define(version: 2023_04_10_160625) do
+
+  create_table "ai_methods", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -57,6 +64,10 @@ ActiveRecord::Schema.define(version: 2023_04_04_130507) do
     t.integer "total_chats", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "ai_method_id"
+    t.string "image"
+    t.text "original_image"
+    t.index ["ai_method_id"], name: "index_chats_on_ai_method_id"
     t.index ["host_id"], name: "index_chats_on_host_id"
     t.index ["prequel_chat_id"], name: "index_chats_on_prequel_chat_id"
     t.index ["room_id"], name: "index_chats_on_room_id"
@@ -183,6 +194,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_130507) do
   add_foreign_key "chat_likes", "chats"
   add_foreign_key "chat_likes", "hosts"
   add_foreign_key "chat_likes", "users"
+  add_foreign_key "chats", "ai_methods"
   add_foreign_key "chats", "chats", column: "prequel_chat_id"
   add_foreign_key "chats", "hosts"
   add_foreign_key "chats", "rooms"
