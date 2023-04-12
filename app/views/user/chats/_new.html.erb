@@ -12,9 +12,9 @@
       <% end %>
       <%= f.hidden_field :ai_method_id,value:AiMethod.find_by(name:"generate_chat").id, id:"ai_method_field" %>
       <%if chat.prequel_chat_id.present? %>
-      <%= f.text_area :question, placeholder:"続きの質問", required: true, maximum: chat.max_characters, autocomplete: "new-password", class:"input_field text_area", value:"", required: true%>
+      <%= f.text_area :question, placeholder:"続きの質問", maximum: chat.max_characters, autocomplete: "new-password", class:"input_field text_area", value:"", required: true%>
       <%else%>
-      <%= f.text_area :question, placeholder:"質問", required: true, maximum: chat.max_characters, autocomplete: "new-password", class:"input_field text_area",value:"" ,required: true%>
+      <%= f.text_area :question, placeholder:"質問", maximum: chat.max_characters, autocomplete: "new-password", class:"input_field text_area",value:"" ,required: true%>
       <%end%>
 
       <!--送信ボタン -->
