@@ -1,4 +1,5 @@
 class User::ChatsController < User::Base
+    after_action :increment_total_views, only:[:show]
     #require "openai"
     def index
         @chats = Chat.all
@@ -114,7 +115,6 @@ class User::ChatsController < User::Base
     def show
         @chat = Chat.find(params[:id])
         gon.id = params[:id]
-        @chat.update(total_views: @chat.total_views + 1)
         @uppers = @chat.uppers.order(created_at: :asc)
         update_total_views(@uppers)
 
@@ -126,6 +126,13 @@ class User::ChatsController < User::Base
 
         @new_comment = Comment.new(chat_id: params[:id])
         @comments = @chat.comments.page(params[:page]).order(created_at: :DESC).per(gon.comment_pages)
+    end
+
+    def increment_total_views
+        puts "バリデーション"
+        puts @chat.valid?
+        puts @chat.errors.full_messages
+        @chat.update(total_views: @chat.total_views + 1)
     end
 
     def chat_params

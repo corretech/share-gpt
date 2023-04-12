@@ -22,7 +22,7 @@ class Chat < ApplicationRecord
 
     before_validation :create_room
     before_validation :set_default_value
-    before_validation :save_image
+    before_create :save_image
     after_save :create_contexts
     after_save :update_parent_total_chats
     after_create :categorize_chat
