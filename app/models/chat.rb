@@ -56,8 +56,8 @@ class Chat < ApplicationRecord
             self.prequel = nil
         end
         #前のチャットが画像生成なら前のチャットにできない
-        if self.prequel.present? && self.prequel.ai_method.name == "generate_image"
-            self.prequel = nil
+        if self.prequel.present? && self.prequel.ai_method.present?
+            self.prequel = nil if self.prequel.ai_method.name == "generate_image"
         end
     end
 
