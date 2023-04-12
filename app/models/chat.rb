@@ -22,7 +22,7 @@ class Chat < ApplicationRecord
 
     before_validation :create_room
     before_validation :set_default_value
-    before_create :save_image
+    before_validation :save_image
     after_save :create_contexts
     after_save :update_parent_total_chats
     after_create :categorize_chat
@@ -41,7 +41,7 @@ class Chat < ApplicationRecord
     end
 
     def save_image
-        if self.generate_image
+        if !self.image.present? && self.generate_image
             self.remote_image_url = self.original_image
         end
     end
